@@ -9,14 +9,14 @@ import {
   Paper,
 } from "@mui/material";
 
-export default function ListTarefas({ data, handleChecked}) {
+export default function ListTarefas({ data, handleChecked }) {
   return (
     <Container maxWidth={"xs"}>
       <List sx={{ width: "100%" }}>
         {data &&
           data.map((tarefa) => {
             return (
-              <Paper sx={{ mt: 1, pl: 1 }}>
+              <Paper sx={{ mt: 1, p: 1 }}>
                 <ListItem
                   key={tarefa.id}
                   secondaryAction={

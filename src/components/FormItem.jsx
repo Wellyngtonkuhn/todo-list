@@ -6,19 +6,16 @@ import axios from "axios";
 export default function FormItem({ data }) {
   const tarefaRef = useRef();
 
-
   const handleTarefa = async () => {
-    
-    const newId = data.id + 1
+    const newId = data.id + 1;
 
     const newData = {
       id: newId,
       name: tarefaRef.value,
-      done: false
-    }
+      done: false,
+    };
 
-    const request = await axios.post('http://localhost:3001/tarefas', newData)
-
+    const request = await axios.post("http://localhost:3001/tarefas", newData);
   };
 
   return (
