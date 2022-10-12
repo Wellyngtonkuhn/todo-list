@@ -1,22 +1,6 @@
-import { useRef } from "react";
 import { Box, Container, Grid, Icon, Paper, TextField } from "@mui/material";
 
-import axios from "axios";
-
-export default function FormItem({ data }) {
-  const tarefaRef = useRef();
-
-  const handleTarefa = async () => {
-    const newId = data.id + 1;
-
-    const newData = {
-      id: newId,
-      name: tarefaRef.value,
-      done: false,
-    };
-
-    const request = await axios.post("http://localhost:3001/tarefas", newData);
-  };
+export default function FormItem({ handleAddTarefa, tarefa, setTarefa }) {
 
   return (
     <>
@@ -31,7 +15,9 @@ export default function FormItem({ data }) {
             >
               <Grid item xs={10}>
                 <TextField
-                  onChange={(e) => (tarefaRef.value = e.target.value)}
+                  id={'input'}
+                  autoFocus
+                  onChange={(e) => setTarefa(e.target.value)}
                   fullWidth
                   label={"Tarefa"}
                   variant={"standard"}
@@ -39,7 +25,7 @@ export default function FormItem({ data }) {
               </Grid>
               <Grid item xs={2}>
                 <Icon
-                  onClick={() => handleTarefa()}
+                  onClick={() => handleAddTarefa(tarefa)}
                   color="primary"
                   sx={{ cursor: "pointer" }}
                 >

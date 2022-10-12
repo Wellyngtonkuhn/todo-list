@@ -2,22 +2,12 @@
   "tarefas": [
     {
       "id": 1,
-      "name": "First",
+      "name": "Arrumar a Casa",
       "done": false
     },
     {
       "id": 2,
-      "name": "Maria",
-      "done": false
-    },
-    {
-      "id": 3,
-      "name": "José",
-      "done": false
-    },
-    {
-      "id": 4,
-      "name": "Feira",
+      "name": "Lavar o Banheiro ",
       "done": false
     }
   ]

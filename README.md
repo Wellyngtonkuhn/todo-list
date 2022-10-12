@@ -5,6 +5,7 @@
  ## Dependências Necessárias
     npm i @tanstack/react-query
     npm install @mui/material @emotion/react @emotion/styled
+    npm i axios
 
 
 No repositório você pode inicializar:
