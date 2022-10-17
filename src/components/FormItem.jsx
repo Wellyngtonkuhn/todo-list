@@ -1,7 +1,6 @@
 import { Box, Container, Grid, Icon, Paper, TextField } from "@mui/material";
 
 export default function FormItem({ handleAddTarefa, tarefa, setTarefa }) {
-
   return (
     <>
       <Container maxWidth={"xs"} sx={{ pt: 5 }}>
@@ -15,7 +14,7 @@ export default function FormItem({ handleAddTarefa, tarefa, setTarefa }) {
             >
               <Grid item xs={10}>
                 <TextField
-                  id={'input'}
+                  id={"input"}
                   autoFocus
                   onChange={(e) => setTarefa(e.target.value)}
                   fullWidth

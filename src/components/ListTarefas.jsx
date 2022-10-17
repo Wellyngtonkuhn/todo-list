@@ -45,9 +45,8 @@ export default function ListTarefas({
           {data &&
             data.map((tarefa) => {
               return (
-                <Paper sx={{ mt: 1, p: 1 }}>
+                <Paper sx={{ mt: 1, p: 1 }} key={tarefa.id}>
                   <ListItem
-                    key={tarefa.id}
                     secondaryAction={
                       <Icon
                         sx={{ cursor: "pointer" }}

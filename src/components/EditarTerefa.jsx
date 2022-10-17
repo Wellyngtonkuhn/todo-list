@@ -1,21 +1,25 @@
 import { forwardRef } from "react";
-import Button from "@mui/material/Button";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
-import Slide from "@mui/material/Slide";
-import { TextField } from "@mui/material";
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  Slide,
+  TextField,
+} from "@mui/material";
 
 const Transition = forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function EditarTerefa({ open, handeDiologer, handleSaveTarefa, tarefa }) {
-
-  console.log(tarefa)
-  
+export default function EditarTerefa({
+  open,
+  handeDiologer,
+  handleSaveTarefa,
+  tarefa,
+}) {
   return (
     <div>
       <Dialog
@@ -30,7 +34,7 @@ export default function EditarTerefa({ open, handeDiologer, handleSaveTarefa, ta
           <DialogContentText id="alert-dialog-slide-description">
             <TextField
               autoFocus
-              onChange={''}
+              onChange={handleSaveTarefa}
               sx={{ width: "35vw" }}
               label={"Tarefa"}
               variant={"standard"}
@@ -40,7 +44,7 @@ export default function EditarTerefa({ open, handeDiologer, handleSaveTarefa, ta
         </DialogContent>
         <DialogActions>
           <Button onClick={handeDiologer}>Cancelar</Button>
-          <Button onClick={''}>Salvar</Button>
+          <Button onClick={handleSaveTarefa}>Salvar</Button>
         </DialogActions>
       </Dialog>
     </div>

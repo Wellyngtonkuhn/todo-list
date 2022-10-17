@@ -2,17 +2,19 @@ import { useState } from "react";
 
 import { Container } from "@mui/system";
 
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 import axios from "axios";
 import FormItem from "../components/FormItem";
 import ListTarefas from "../components/ListTarefas";
+import { Experimental_CssVarsProvider } from "@mui/material";
 
 export default function Home() {
   const [tarefa, setTarefa] = useState(null);
 
   const queryClient = useQueryClient();
 
+  // Fetch the data
   const { data, isLoading, isError } = useQuery(
     ["tarefas"],
     async () => {
@@ -24,36 +26,45 @@ export default function Home() {
     }
   );
 
-  const mutation = useMutation("postTarefa", {
-    onSuccess: () => {
-      queryClient.invalidateQueries(["tarefas"]);
-    },
-  });
+  // Update the cache
+  const upDateCache = (newTask) => {
+    const previousCacheData = queryClient.getQueriesData("tarefas");
+    const cacheData = previousCacheData[0][1];
 
-  const handleAddTarefa = async (values) => {
-    const newId = data.id + 1;
-    const newData = {
+    if (cacheData) {
+      queryClient.setQueryData(["tarefas"], (oldCache) => {
+        return [...oldCache, newTask];
+      });
+    }
+  };
+
+  // Post New Tarefa
+  const handleAddTarefa = async (tarefa) => {
+    const newId = Math.floor(Math.random() * (10000 - 1) + 1);
+    let newTask = {
       id: newId,
-      name: values,
+      name: tarefa,
       done: false,
     };
 
-    await axios.post("http://localhost:3001/tarefas", newData);
+    await axios.post("http://localhost:3001/tarefas", newTask);
 
-    await queryClient.invalidateQueries(["tarefas"]);
-    document.getElementById("input").value = null;
+    upDateCache(newTask);
+
+    document.getElementById("input").value = "";
+    document.getElementById("input").focus();
   };
 
   const handleChecked = async (tarefa) => {
-    const newData = {
+    const newTask = {
       id: tarefa.id,
       name: tarefa.name,
       done: !tarefa.done,
     };
 
-    await axios.put(`http://localhost:3001/tarefas/${tarefa.id}`, newData);
+    await axios.put(`http://localhost:3001/tarefas/${tarefa.id}`, newTask);
 
-    await queryClient.invalidateQueries(["tarefas"]);
+    queryClient.invalidateQueries("tarefas");
   };
 
   const handleSaveTarefa = async (tarefa) => {
@@ -76,7 +87,6 @@ export default function Home() {
   return (
     <>
       <Container maxWidth={"xl"} sx={{ background: "#c6c6c6" }}>
-
         <FormItem
           tarefa={tarefa}
           setTarefa={setTarefa}
